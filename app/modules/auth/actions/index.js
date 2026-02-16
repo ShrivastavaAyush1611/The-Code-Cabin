@@ -42,3 +42,29 @@ export const onBoardUser = async () => {
     };
   }
 };
+
+export const currentUserRole = async () => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return { success: false, error: "No authenticated user" };
+      // return null;
+    }
+    const { id } = user;
+    const userRole = await db.user.findUnique({
+      where: {
+        clerkId: id,
+      },
+      select: {
+        role: true,
+      },
+    });
+    return userRole?.role || null;
+  } catch (error) {
+    console.log("❌ Error fetch current user :", error);
+    return {
+      success: false,
+      error: "Failed to fetch current user",
+    };
+  }
+};
