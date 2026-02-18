@@ -6,6 +6,7 @@ import React from "react";
 
 const RootLayout = async({ children }) => {
   const userRole = await currentUserRole()
+  
   return (
     <main className="flex flex-col min-h-screen max-h-screen">
     <Navbar userRole={userRole}/>
